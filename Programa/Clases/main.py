@@ -5,15 +5,15 @@ from libro import Libros
 class Main:
     def submenu_mostrar_datos(self):
         return (f"\n === Menú Principal ===               "
-                "------------------------                "
-                "1. Gestionar alumnos.                   "
-                "2. Gestionar préstamos.                 "
-                "3. Mostrar datos.                       "
-                "           └- - - - - - - - - - - - - - "
-                "            1. Mostrar libros.          "
-                "            2. Mostrar cursos.          "
-                "            3. Mostrar materias.        "
-                "            - - - - - - - - - - - - - - ")
+                "\n------------------------                "
+                "\n1. Gestionar alumnos.                   "
+                "\n2. Gestionar préstamos.                 "
+                "\n3. Mostrar datos.                       "
+                "\n           └- - - - - - - - - - - - - - "
+                "\n            1. Mostrar libros.          "
+                "\n            2. Mostrar cursos.          "
+                "\n            3. Mostrar materias.        "
+                "\n            - - - - - - - - - - - - - - ")
 
     def mostrar_datos(self):
         opcion_mostrar_datos: int = 0
@@ -58,12 +58,12 @@ class Main:
 
     def menu_crear_alumno(self):
         return ("\n === Menú Principal ==="
-                "------------------------                "
-                "1. Gestionar alumnos.                   "
-                "           └- - - - - - - - - - - - - - "
-                "            1. Crear alumno.            "
-                "            - - - - - - - - - - - - - - "
-                "                                        ")
+                "\n------------------------                "
+                "\n1. Gestionar alumnos.                   "
+                "\n           └- - - - - - - - - - - - - - "
+                "\n            1. Crear alumno.            "
+                "\n            - - - - - - - - - - - - - - "
+                "\n                                        \n")
 
     def crear_alumno(self):
         bilingue_aux: str = ''
@@ -116,20 +116,20 @@ class Main:
         print("Alumno creado con éxito.")
 
     def menu_modificar_alumno(self, alumno) -> str:
-        return (f"\n === Menú Principal ===                         "
-                "------------------------                           "
-                "1. Gestionar alumnos.                              "
-                "           └- - - - - - - - - - - - - - - - - - - -"
-                "            1. Crear alumno.                       "
-                "            2. Modificar alumno.                   "
-                "                       └- - - - - - - - - - - - - -"
-                "                        1. Modificar NIE.          "
-                "                        2. Modificar nombre.       "
-                "                        3. Modificar apellidos.    "
-                "                        4. Modificar bilingüe.     "
-                "                        5. Modificar tramo.        "
-                "                        6. Volver al menú anterior."
-                "                        - - - - - - - - - - - - - -")
+        return (f"\n === Menú Principal ===                           "
+                "\n------------------------                           "
+                "\n1. Gestionar alumnos.                              "
+                "\n           └- - - - - - - - - - - - - - - - - - - -"
+                "\n            1. Crear alumno.                       "
+                "\n            2. Modificar alumno.                   "
+                "\n                       └- - - - - - - - - - - - - -"
+                "\n                        1. Modificar NIE.          "
+                "\n                        2. Modificar nombre.       "
+                "\n                        3. Modificar apellidos.    "
+                "\n                        4. Modificar bilingüe.     "
+                "\n                        5. Modificar tramo.        "
+                "\n                        6. Volver al menú anterior."
+                "\n                        - - - - - - - - - - - - - -")
 
     def modificar_alumno(self, alumno) -> None:
 
@@ -174,17 +174,18 @@ class Main:
 
     def submenu_gestionar_alumnos(self):
         return ("\n === Menú Principal ===                        "
-                "------------------------                         "
-                "1. Gestionar alumnos.                            "
-                "           └- - - - - - - - - - - - - - - - - - -"
-                "            1. Crear alumno.                     "
-                "            2. Modificar alumno.                 "
-                "            3. Mostrar información de alumno.    "
-                "            4. Mostrar todos los alumnos.        "
-                "            5. Volver al menú principal.         "
-                "            - - - - - - - - - - - - - - - - - - -")
+                "\n------------------------                         "
+                "\n1. Gestionar alumnos.                            "
+                "\n           └- - - - - - - - - - - - - - - - - - -"
+                "\n            1. Crear alumno.                     "
+                "\n            2. Modificar alumno.                 "
+                "\n            3. Mostrar información de alumno.    "
+                "\n            4. Mostrar todos los alumnos.        "
+                "\n            5. Volver al menú principal.         "
+                "\n            - - - - - - - - - - - - - - - - - - -")
 
     def gestionar_alumnos(self):
+        global alumno
         opcion_gestionar_alumnos: int = 0
 
         while True:
@@ -196,14 +197,7 @@ class Main:
                 case 1:
                     self.crear_alumno()
                 case 2:
-                    nie = input("Ingrese NIE del alumno a modificar: ")
-                    alumno = Alumnos.buscar_por_nie(nie)
-                    if alumno:
-                        self.menu_modificar_alumno(alumno)
-                    else:
-                        print("Alumno no encontrado."
-                              "El alumno no ha sido encontrado, es posible que el documento "
-                              "introducido no sea correcto o no exista.")
+                    self.modificar_alumno(alumno)
                 case 3:
                     nie = input("Ingrese NIE: ")
                     alumno = Alumnos.buscar_por_nie(nie)
@@ -224,17 +218,20 @@ class Main:
                     print("Opción inválida.")
 
     def menu_principal(self):
+        return (f"\n === Menú Principal ==="
+                "\n------------------------"
+                "\n1. Gestionar alumnos."
+                "\n2. Gestionar préstamos."
+                "\n3. Mostrar datos."
+                "\n4. Búsqueda avanzada."
+                "\n5. Copia de seguridad."
+                "\n6. Exportar datos."
+                "\n7. Salir."
+                "\n------------------------\n")
+
+    def opciones_menu_principal(self):
         while True:
-            print("\n === Menú Principal ===")
-            print("------------------------")
-            print("1. Gestionar alumnos.")
-            print("2. Gestionar préstamos.")
-            print("3. Mostrar datos.")
-            print("4. Búsqueda avanzada.")
-            print("5. Copia de seguridad.")
-            print("6. Exportar datos.")
-            print("7. Salir.")
-            print("------------------------\n")
+            print(self.menu_principal())
 
             opcion = int(input("Escoja una opción del menú: "))
 
@@ -258,5 +255,6 @@ class Main:
                     print("Opción inválida, escoja una de las opciones indicadas en el menú.")
 
 
-programa = Main()
-programa.menu_principal()
+if __name__ == "__main__":
+    programa = Main()
+    programa.opciones_menu_principal()

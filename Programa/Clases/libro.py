@@ -1,4 +1,3 @@
-
 class Libros:
     def __init__(self, isbn: str, titulo: str, autor: str, n_ejemplares: int, estado: bool, id_materia: int,
                  id_curso: int) -> None:
@@ -10,7 +9,6 @@ class Libros:
         self.id_materia = id_materia
         self.id_curso = id_curso
 
-
     def __str__(self):
         return (f"ISBN: {self.isbn} | "
                 f"Titulo: {self.titulo} | "
@@ -19,9 +17,7 @@ class Libros:
                 f"ID: {self.id_materia} | "
                 f"Curso: {self.id_curso}")
 
-
-
-
+#
 # cambiar_objeto_a_linea()
 #
 # crear_desde_linea()
@@ -29,5 +25,4 @@ class Libros:
 # guardar_en_archivo()
 #
 # cargar_libros()
-
-
+#
