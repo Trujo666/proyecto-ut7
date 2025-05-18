@@ -1,0 +1,70 @@
+Alumnos
+	Nie: str
+	Nombre: str
+	Apellidos: str
+	Bilingüe: bool		
+Tramo (0, I y II): str
+	Mostrar_informacion_alumnos()
+	Crear_alumno()
+	Modificar_alumno()
+
+Libros
+	ISBN: str
+	Titulo: str
+Autor: str
+Numero ejemplares: int
+Id_materia: int
+Id_curso: int
+	Mostrar_libros()
+
+Cursos
+	Curso:  str
+	Nivel:  str
+		Mostrar_cursos()
+
+Materias
+	Id: int
+	Nombre: str
+	Departamento: str
+Mostrar_materias()
+
+Prestamos
+Nie: str
+Curso: str
+Isbn: str
+Fecha_entrega: int	
+Fecha_devolución: int	
+Estado: str
+	Mostrar_prestamo()
+	Hacer_prestamo()
+	Devolver_prestamo()
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+El menú principal:
+	Submenú 1
+		Submenú 2
+
+1. Gestionar alumnos.
+	1. Crear alumno.
+	2. Modificar alumno.
+		1. Modificar NIE del alumno.
+		2. Modificar nombre del alumno.
+		3. Modificar apellidos del alumno.
+		4. Modificar bilingue. 
+		5. Modificar tramo becado.  
+		6. Salir de menú 'Modificar alumno'.
+	3. Mostrar información de alumno.
+	4. Mostrar información de alumnos.
+2. Gestionar préstamos.
+	1. Realizar prestamo.
+	2. Devolución prestamo.
+	3. Consultar estado libro.
+3. Mostrar datos.
+	1. Mostrar libros.
+	2. Mostrar cursos. 
+	3. Mostrar materias.
+4. Busqueda avanzada.
+5. Copia de seguridad.
+6. Exportar datos.
+
