@@ -21,14 +21,6 @@ class Alumnos:
     def set_tramo(self, tramo):
         self.tramo = tramo
 
-    def __str__(self):
-        return (
-            f"DNI: {self.nie} | "
-            f"Nombre: {self.nombre} {self.apellidos} | "
-            f"Bilingüe: {'Sí' if self.bilingue else 'No'} | "
-            f"Tramo: {self.tramo}"
-        )
-
     def cambiar_objeto_a_linea(self):
         return f"{self.nie}|{self.nombre}|{self.apellidos}|{int(self.bilingue)}|{self.tramo}"
 
@@ -37,10 +29,6 @@ class Alumnos:
         nie, nombre, apellidos, bilingue_str, tramo = linea.strip().split("|")
         bilingue = bool(int(bilingue_str))
         return Alumnos(nie, nombre, apellidos, bilingue, tramo)
-
-    def guardar_en_archivo(self, ruta="../Datos/alumnos.txt"):
-        with open(ruta, "a", encoding="utf-8") as archivo:
-            archivo.write(self.cambiar_objeto_a_linea() + "\n")
 
     @staticmethod
     def cargar_alumnos(ruta="../Datos/alumnos.txt"):
@@ -59,15 +47,25 @@ class Alumnos:
                 return alumno
         return None
 
-    """modificar alumno"""
+    def guardar_en_archivo(self, ruta="../Datos/alumnos.txt"):
+        with open(ruta, "a", encoding="utf-8") as archivo:
+            archivo.write(self.cambiar_objeto_a_linea() + "\n")
 
-    def modificar_alumno(self):
-        nie = input("Ingrese NIE del alumno a modificar: ")
-        alumno = Alumnos.buscar_por_nie(nie)
-        if alumno:
-            self.modificar_alumno()
-        else:
-            print("Alumno no encontrado."
-                  "El alumno no ha sido encontrado, es posible que el documento "
-                  "introducido no sea correcto o no exista.")
+    def modificar_datos(self, campo, valor):
+        match campo:
+            case "nie":
+                self.nie = valor
+            case "nombre":
+                self.nombre = valor
+            case "apellidos":
+                self.apellidos = valor
+            case "bilingue":
+                self.bilingue = valor
+            case "tramo":
+                self.tramo = valor
 
+    def __str__(self):
+        return (f"DNI: {self.nie} | "
+                f"Nombre: {self.nombre} {self.apellidos} | "
+                f"Bilingüe: {'Sí' if self.bilingue else 'No'} | "
+                f"Tramo: {self.tramo}")

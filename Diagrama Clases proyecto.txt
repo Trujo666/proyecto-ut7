@@ -41,7 +41,7 @@ Estado: str
 
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-El menú principal:
+Menú principal:
 	Submenú 1
 		Submenú 2
 
@@ -56,15 +56,18 @@ El menú principal:
 		6. Salir de menú 'Modificar alumno'.
 	3. Mostrar información de alumno.
 	4. Mostrar información de alumnos.
+	5. Salir al menú principal.
 2. Gestionar préstamos.
 	1. Realizar prestamo.
 	2. Devolución prestamo.
 	3. Consultar estado libro.
+	4. Salir al menú principal.
 3. Mostrar datos.
-	1. Mostrar libros.
+	1. Mostrar libros. 
 	2. Mostrar cursos. 
 	3. Mostrar materias.
+	4. Salir al menú principal.
 4. Busqueda avanzada.
 5. Copia de seguridad.
-6. Exportar datos.
+
 

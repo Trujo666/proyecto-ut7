@@ -4,7 +4,7 @@ from libro import Libros
 
 class Main:
     def submenu_mostrar_datos(self):
-        return (f"\n === Menú Principal ===               "
+        return (f"\n === Menú Principal ===                "
                 "\n------------------------                "
                 "\n1. Gestionar alumnos.                   "
                 "\n2. Gestionar préstamos.                 "
@@ -63,7 +63,7 @@ class Main:
                 "\n           └- - - - - - - - - - - - - - "
                 "\n            1. Crear alumno.            "
                 "\n            - - - - - - - - - - - - - - "
-                "\n                                        \n")
+                "\n                                      \n")
 
     def crear_alumno(self):
         bilingue_aux: str = ''
@@ -73,10 +73,15 @@ class Main:
         print("------------------------")
         while True:
             dni = input("\nIntroduzca el DNI del alumno: ").strip().upper()
-            if len(dni) == 9:
-                break
-            else:
-                print("El DNI debe tener 9 caracteres.")
+
+            if len(dni) != 9:
+                print("El DNI debe tener exactamente 9 caracteres.")
+                continue
+
+            if Alumnos.buscar_por_nie(dni):
+                print("Ya existe un alumno con ese DNI.")
+                continue
+            break
 
         while True:
             nombre = input("Introduzca el nombre del alumno: ").strip()
@@ -115,7 +120,7 @@ class Main:
         nuevo.guardar_en_archivo()
         print("Alumno creado con éxito.")
 
-    def menu_modificar_alumno(self, alumno) -> str:
+    def menu_modificar_alumno(self) -> str:
         return (f"\n === Menú Principal ===                           "
                 "\n------------------------                           "
                 "\n1. Gestionar alumnos.                              "
@@ -132,32 +137,44 @@ class Main:
                 "\n                        - - - - - - - - - - - - - -")
 
     def modificar_alumno(self, alumno) -> None:
-
-        opcion_modificar_alumno: int = 0
-
         while True:
-            print(self.menu_crear_alumno())
+            print(self.menu_modificar_alumno())
 
-            opcion_modificar_alumno = int(input("Escoja una opción: "))
+            try:
+                opcion_modificar_alumno = int(input("Escoja una opción: "))
+            except ValueError:
+                print("Debe introducir un número válido.")
+                continue
 
             match opcion_modificar_alumno:
                 case 1:
-                    alumno.set_nie(input("Nuevo NIE: "))
+                    while True:
+                        nuevo = input("Nuevo NIE: ").strip().upper()
+                        if len(nuevo) == 9:
+                            alumno.modificar_datos("nie", nuevo)
+                            print("¡El NIE ha sido modificado!")
+                            break
+                        else:
+                            print("El NIE debe contener 9 caracteres.")
                 case 2:
-                    alumno.set_nombre(input("Nuevo nombre: "))
+                    while True:
+                        nuevo = input("Nuevo nombre: ").strip()
+                        alumno.modificar_datos("nombre", nuevo)
                 case 3:
-                    alumno.set_apellidos(input("Nuevos apellidos: "))
+                    nuevo = input("Nuevos apellidos: ").strip()
+                    alumno.modificar_datos("apellidos", nuevo)
                 case 4:
                     bilingue_input = input("¿Es bilingüe? (S/N): ").strip().upper()
                     if bilingue_input == "S":
-                        alumno.set_bilingue(True)
+                        alumno.modificar_datos("bilingue", True)
                     elif bilingue_input == "N":
-                        alumno.set_bilingue(False)
+                        alumno.modificar_datos("bilingue", False)
                     else:
                         print("Por favor, introduzca 'S' o 'N'.")
                 case 5:
-                    nuevo_tramo = (input("Nuevo tramo (0, I o II): ")).strip().upper()
-                    alumno.set_tramo(nuevo_tramo)
+                    nuevo = input("Nuevo tramo (0, I o II): ").strip().upper()
+                    if nuevo in ["0", "I", "II"]:
+                        alumno.modificar_datos("tramo", nuevo)
                 case 6:
                     break
                 case _:
@@ -165,11 +182,12 @@ class Main:
 
         alumnos = Alumnos.cargar_alumnos()
         with open("../Datos/alumnos.txt", "w", encoding="utf-8") as archivo:
-            for alumno in alumnos:
-                if alumno.nie == alumno.nie:
-                    archivo.write(alumno.formato_linea() + "\n")
+            for a in alumnos:
+                if a.nie == alumno.nie:
+                    archivo.write(alumno.cambiar_objeto_a_linea() + "\n")
                 else:
-                    archivo.write(alumno.formato_linea() + "\n")
+                    archivo.write(a.cambiar_objeto_a_linea() + "\n")
+
         print("Cambios guardados.")
 
     def submenu_gestionar_alumnos(self):
@@ -185,7 +203,6 @@ class Main:
                 "\n            - - - - - - - - - - - - - - - - - - -")
 
     def gestionar_alumnos(self):
-        global alumno
         opcion_gestionar_alumnos: int = 0
 
         while True:
@@ -197,7 +214,12 @@ class Main:
                 case 1:
                     self.crear_alumno()
                 case 2:
-                    self.modificar_alumno(alumno)
+                    nie = input("Ingrese NIE del alumno a modificar: ").strip().upper()
+                    alumno = Alumnos.buscar_por_nie(nie)
+                    if alumno:
+                        self.modificar_alumno(alumno)
+                    else:
+                        print("Alumno no encontrado.")
                 case 3:
                     nie = input("Ingrese NIE: ")
                     alumno = Alumnos.buscar_por_nie(nie)
@@ -223,17 +245,19 @@ class Main:
                 "\n1. Gestionar alumnos."
                 "\n2. Gestionar préstamos."
                 "\n3. Mostrar datos."
-                "\n4. Búsqueda avanzada."
-                "\n5. Copia de seguridad."
-                "\n6. Exportar datos."
-                "\n7. Salir."
+                "\n4. Copia de seguridad."
+                "\n5. Salir."
                 "\n------------------------\n")
 
     def opciones_menu_principal(self):
         while True:
             print(self.menu_principal())
 
-            opcion = int(input("Escoja una opción del menú: "))
+            try:
+                opcion = int(input("Escoja una opción del menú: "))
+            except ValueError:
+                print("Debe introducir un número válido.")
+                continue
 
             match opcion:
                 case 1:
@@ -243,12 +267,8 @@ class Main:
                 case 3:
                     print("Mostrar datos. (Pendiente)")
                 case 4:
-                    print("Búsqueda avanzada. (Pendiente)")
-                case 5:
                     print("Copia de seguridad. (Pendiente)")
-                case 6:
-                    print("Exportar datos. (Pendiente)")
-                case 7:
+                case 5:
                     print("Saliendo del programa...")
                     break
                 case _:
